@@ -1,0 +1,29 @@
+﻿@model List<MyPortfolioWebsite.DAL.Entities.BlogPost>
+
+<div class="row blog-content">
+        <div class="col-full">
+
+            <div class="blog-list block-1-2 block-tab-full">
+            @foreach (var item in Model)
+            {
+                <article class="col-block">
+                    <div class="blog-date">
+                        <a >@item.Date</a> 
+                    </div>
+
+                    <h2 class="h01">
+                        <a href="@item.Url">@item.Head</a> 
+                    </h2>
+
+                    <p>@item.Description</p> 
+
+                    <div class="blog-cat">
+                        <a href="@item.Url">@item.UrlTitle</a> 
+                    </div>
+                </article>
+            }
+
+            </div> 
+
+        </div> 
+    </div> 

@@ -1,0 +1,16 @@
+﻿@model List<MyPortfolioWebsite.DAL.Entities.SocialMedia>
+
+<section id="home" class="s-home page-hero target-section" data-parallax="scroll" data-image-src="https://i.hizliresim.com/9ofm6rs.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
+    <div class="overlay"></div>
+        <div class="shadow-overlay"></div>
+            <ul class="home-social">
+                @foreach (var item in Model)
+                {
+                    <li>
+                        <a href="@item.Url"><i class="@item.Icon" aria-hidden="true"></i><span>@item.Title</span></a>
+                    </li>   
+                }
+            </ul>
+        </div>
+    </div>
+</section>

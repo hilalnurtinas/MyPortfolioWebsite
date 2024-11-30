@@ -1,0 +1,97 @@
+﻿@model List<MyPortfolioWebsite.DAL.Entities.Portfolio>
+
+@{
+    ViewData["Title"] = "ProjectList";
+    Layout = "~/Views/Layout/Index.cshtml";
+}
+<style>
+	.content {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		min-height: 100vh;
+		padding: 20px;
+	}
+
+	.table {
+		width: 100%;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+		.table td {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			max-width: 200px; 
+		}
+
+			.table td:hover {
+				overflow: visible;
+				white-space: normal;
+				word-wrap: break-word;
+			}
+
+			.table td a {
+				text-decoration: none;
+				color: inherit;
+			}
+
+			.table td:hover a {
+				text-decoration: underline;
+			}
+</style>
+
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Portfolio</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">Project List</div>
+					</div>
+					<div class="card-body">
+						<div class="card-sub">
+							You can make changes related to the Project list from below :
+						</div>
+						<table class="table mt-3">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Title</th>
+									<th scope="col">Image Url</th>
+									<th scope="col">Url</th>
+									<th scope="col">Description</th>
+									<th scope="col">Delete</th>
+									<th scope="col">Update</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td>@item.PortfolioID</td>
+										<td>@item.Title</td>
+										<td>@item.ImageUrl</td>
+										<td>@item.Url</td>
+										<td>@item.Description</td>
+										<td><a href="/Portfolio/DeleteProject/@item.PortfolioID" class="btn btn-danger">Delete</a></td>
+										<td><a href="/Portfolio/UpdateProject/@item.PortfolioID" class="btn btn-success">Update</a></td>
+									</tr>
+								}
+							</tbody>
+						</table>
+						<a href="/Portfolio/CreateProject/" class="btn btn-primary">Add New Project</a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

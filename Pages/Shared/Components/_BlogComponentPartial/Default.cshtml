@@ -1,0 +1,17 @@
+﻿@model MyPortfolioWebsite.DAL.Entities.Blog
+
+<section id="blog" class="s-blog target-section">
+
+    <div class="row narrow section-intro has-bottom-sep">
+        <div class="col-full">
+            <h3>@Model.Title</h3>
+            <h1>@Model.SubDescription</h1>
+            <p class="lead">
+                @Model.Details
+            </p>
+        </div>
+    </div>
+
+    @await Component.InvokeAsync("_BlogPostComponentPartial")
+
+</section> 

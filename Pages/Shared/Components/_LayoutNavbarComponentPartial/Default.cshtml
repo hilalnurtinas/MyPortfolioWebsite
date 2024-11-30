@@ -1,0 +1,97 @@
+﻿<style>
+	#unreadMessageCount {
+		top: -3px; 
+		left: -3px; 
+		font-size: 10px; 
+		background-color: hotpink;
+		color: white;
+		padding: 2px 5px;
+		border-radius: 50%; 
+		display: none; 
+		z-index: 1; 
+	}
+
+
+</style>
+
+<div class="main-header">
+	<div class="logo-header">
+		<a href="index.html" class="logo">
+			Admin Panel
+		</a>
+		<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
+	</div>
+	<nav class="navbar navbar-header navbar-expand-lg">
+		<div class="container-fluid">
+
+			<form class="navbar-left navbar-form nav-search mr-md-3" action="">
+				<div class="input-group">
+					<input type="text" placeholder="Search ..." class="form-control">
+					<div class="input-group-append">
+						<span class="input-group-text">
+							<i class="la la-search search-icon"></i>
+						</span>
+					</div>
+				</div>
+			</form>
+			<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+				<li class="nav-item hidden-caret">
+					<a class="nav-link position-relative" href="/Message/Inbox/" id="navbarDropdown">
+						<i class="la la-envelope position-relative">
+							<span id="unreadMessageCount" class="badge badge-danger position-absolute">0</span>
+						</i>
+					</a>
+				</li>
+								
+				<li class="nav-item dropdown">
+					<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img src="~/Ready-Bootstrap-Dashboard-master/assets/img/profile.jpg" alt="user-img" width="36" class="img-circle"><span>Admin</span></span> </a>
+					<ul class="dropdown-menu dropdown-user">
+						<li>
+							<div class="user-box">
+								<div class="u-img"><img src="~/Ready-Bootstrap-Dashboard-master/assets/img/profile.jpg" alt="user"></div>
+								<div class="u-text">
+									<h4>Admin</h4>
+									<p class="text-muted">hello@themekita.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
+								</div>
+							</div>
+						</li>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#"><i class="ti-user"></i> My Profile</a>
+						<a class="dropdown-item" href="#"></i>Go to My Portfolio</a>
+						<a class="dropdown-item" href="#"><i class="ti-email"></i> Inbox</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#"><i class="ti-settings"></i>Change Password</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#"><i class="fa fa-power-off"></i> Logout</a>
+					</ul>
+					<!-- /.dropdown-user -->
+				</li>
+			</ul>
+		</div>
+	</nav>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+		$(document).ready(function () {
+		// Okunmamış mesaj sayısını getir
+		$.ajax({
+			url: '/Message/GetUnreadMessageCount', // Controller Action URL
+			method: 'GET',
+			success: function (response) {
+				if (response.count > 0) {
+					$('#unreadMessageCount').text(response.count).show(); // Sayıyı göster
+				} else {
+					$('#unreadMessageCount').hide(); // Sayı sıfırsa gizle
+				}
+			},
+			error: function () {
+				console.error('Could not fetch unread message count.');
+			}
+		});
+	});
+
+</script>

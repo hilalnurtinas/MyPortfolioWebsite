@@ -1,0 +1,31 @@
+﻿@model MyPortfolioWebsite.DAL.Entities.About
+
+<section id="about" class="s-about target-section">
+
+    <div class="row narrow section-intro has-bottom-sep">
+        <div class="col-full text-center">
+            <h3>About</h3>
+            <h1>@Model.Title</h1>
+            <p class="lead">@Model.SubDescription</p>
+        
+        </div>
+    </div>
+
+    <div class="row about-content">
+
+        <div class="col-six tab-full left">
+            <h3>Howdy!</h3>
+            
+            <p>@Model.Details</p>
+        </div>
+
+        @await Component.InvokeAsync("_SkillComponentPartial")
+
+    </div> <!-- end about-content -->
+
+    @await Component.InvokeAsync("_CvComponentPartial")
+    
+
+    @await Component.InvokeAsync("_ExperienceComponentPartial")
+
+</section> <!-- end about -->

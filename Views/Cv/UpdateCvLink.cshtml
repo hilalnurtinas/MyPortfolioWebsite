@@ -1,0 +1,66 @@
+﻿@model MyPortfolioWebsite.DAL.Entities.Cv
+
+@{
+    ViewData["Title"] = "UpdateCvLink";
+    Layout = "~/Views/Layout/Index.cshtml";
+}
+
+
+<div class="content">
+    <div class="container-fluid">
+        <h4 class="page-title">CV</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Update Cv Link</div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="/Cv/UpdateCvLink">
+                            <input type="hidden" name="CvID" value="@Model.CvID" />
+                            <div class="form-group">
+                                <label for="CvLink">Cv Link</label>
+                                <input type="text" name="CvLink" value="@Model.CvLink" class="form-control" />
+                            </div>
+                        </form>
+
+
+                        <div class="form-group">
+                            <button id="updateCvAjax" class="btn btn-info mt-3">Update CV Link</button>
+                            <div id="ajaxResponseMessage" class="mt-2" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#updateCvAjax').click(function () {
+            var aboutData = {
+                CvLink: $('[name="CvLink"]').val()
+            };
+
+            $.ajax({
+                url: '/Cv/UpdateCvAjax',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(aboutData), 
+                success: function (response) {
+                    var messageDiv = $('#ajaxResponseMessage');
+                    messageDiv.show().removeClass('text-danger text-success')
+                        .addClass(response.success ? 'text-success' : 'text-danger')
+                        .text(response.message);
+                },
+                error: function () {
+                    $('#ajaxResponseMessage').show().removeClass('text-success').addClass('text-danger').text("An error occurred.");
+                }
+            });
+
+        });
+    });
+</script>
+

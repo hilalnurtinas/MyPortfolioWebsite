@@ -1,0 +1,90 @@
+﻿@model MyPortfolioWebsite.DAL.Entities.Reference
+
+@{
+    ViewData["Title"] = "UpdateReference";
+    Layout = "~/Views/Layout/Index.cshtml";
+}
+
+
+<div class="content">
+    <div class="container-fluid">
+        <h4 class="page-title">References</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Update Reference</div>
+                    </div>
+                    <div class="card-body">
+
+                        <form id="updateReferenceForm" method="post">
+                            <div>
+                                <input type="hidden" name="ReferenceID" value="@Model.ReferenceID" />
+                            </div>
+                            <div class="form-group">
+                                <label for="ReferenceName">Reference Name</label>
+                                <input type="text" name="ReferenceName" value="@Model.ReferenceName" class="form-control" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Title">Position</label>
+                                <input type="text" name="Title" value="@Model.Title" class="form-control" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Description">Description</label>
+                                <textarea rows="4" name="Description" class="form-control">@Model.Description</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ImageUrl">Image Url</label>
+                                <input type="text" name="ImageUrl" value="@Model.ImageUrl" class="form-control" />
+                            </div>
+
+                        </form>
+                        <div class="form-group">
+                            <button type="button" id="updateReferenceAjax" class="btn btn-info mt-3">Update Reference</button>
+                            <div id="ajaxResponseMessage" class="mt-2" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#updateReferenceAjax").click(function(e) {
+            e.preventDefault();  
+
+            var formData = {
+                ReferenceID: $("input[name='ReferenceID']").val(),
+                ReferenceName: $("input[name='ReferenceName']").val(),
+                Title: $("input[name='Title']").val(),
+                Description: $("textarea[name='Description']").val(),
+                ImageUrl: $("input[name='ImageUrl']").val()
+            };
+
+            $.ajax({
+                url: '@Url.Action("UpdateReferenceAjax", "Reference")', 
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    if (response.success) {
+                        $("#ajaxResponseMessage").css("color", "green").text(response.message).show();
+                    } else {
+                        $("#ajaxResponseMessage").css("color", "red").text(response.message).show();
+                    }
+                },
+                error: function() {
+                    $("#ajaxResponseMessage").css("color", "red").text("An error occurred while updating the Reference.").show();
+                }
+            });
+        });
+    });
+
+
+</script>
+

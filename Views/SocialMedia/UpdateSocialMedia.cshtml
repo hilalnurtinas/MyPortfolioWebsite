@@ -1,0 +1,84 @@
+﻿@model MyPortfolioWebsite.DAL.Entities.SocialMedia
+
+@{
+    ViewData["Title"] = "UpdateSocialMedia";
+    Layout = "~/Views/Layout/Index.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <h4 class="page-title">SocialMedia</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Update SocialMedia</div>
+                    </div>
+                    <div class="card-body">
+
+                        <form  method="post">
+                            <div>
+                                <input type="hidden" name="SocialMediaID" value="@Model.SocialMediaID" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Title">Title</label>
+                                <input type="text" name="Title" value="@Model.Title" class="form-control" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Url">URL</label>
+                                <input type="text" name="Url" value="@Model.Url" class="form-control" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Icon">Icon</label>
+                                <input type="text" name="Icon" value="@Model.Icon" class="form-control" />
+                            </div>
+
+                            <div class="form-group">
+                                <button type="button" id="updateAboutAjax" class="btn btn-info mt-3">Update Skill</button>
+                                <div id="ajaxResponseMessage" class="mt-2" style="display: none;"></div>
+                            </div>
+                            
+                        </form>
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $("#updateAboutAjax").click(function () {
+            var formData = {
+                    SocialMediaID: $("input[name='SocialMediaID']").val(),
+                    Title: $("input[name='Title']").val(),
+                    Url: $("input[name='Url']").val(),
+                    Icon: $("input[name='Icon']").val()
+                };
+            $.ajax({
+                url: '@Url.Action("UpdateSocialMedia", "SocialMedia")', 
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+
+                    if (response.success) {
+                        $("#ajaxResponseMessage").css("color", "green").text(response.message).show();
+                    } else {
+                        $("#ajaxResponseMessage").css("color", "red").text(response.message).show();
+                    }
+                },
+                error: function() {
+
+                    $("#ajaxResponseMessage").css("color", "red").text("An error occurred while updating the skill.").show();
+                }
+            });
+        });
+    });
+</script>

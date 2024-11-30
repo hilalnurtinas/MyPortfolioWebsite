@@ -1,0 +1,61 @@
+﻿@model List<MyPortfolioWebsite.DAL.Entities.Message>
+
+@{
+    ViewData["Title"] = "Inbox";
+    Layout = "~/Views/Layout/Index.cshtml";
+}
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Messages</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">Message List</div>
+					</div>
+					<div class="card-body">
+						<div class="card-sub">
+							You can make changes related to the message list from below :
+						</div>
+						<table class="table mt-3">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Sender Name</th>
+									<th scope="col">Subject</th>
+									<th scope="col">Date</th>
+									<th scope="col">Open Message</th>
+									<th scope="col">State</th>
+									<th scope="col">Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td>@item.MessageID</td>
+										<td>@item.SenderName</td>
+										<td>@item.Subject</td>
+										<td>@item.SendDate.ToShortDateString()</td>
+										
+										<td><a href="/Message/MessageDetail/@item.MessageID" class="btn btn-warning">Open Message</a></td>
+										@if(item.IsRead == true) 
+										{
+											<td><a href="/Message/ChangeIsReadFalse/@item.MessageID" class="btn btn-dark">Mark as Unread</a></td>
+										}else
+										{
+											<td><a href="/Message/ChangeIsReadTrue/@item.MessageID" class="btn btn-info">Mark as Read</a></td>
+										}
+										<td><a href="/Message/DeleteMessage/@item.MessageID" class="btn btn-danger">Delete</a></td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

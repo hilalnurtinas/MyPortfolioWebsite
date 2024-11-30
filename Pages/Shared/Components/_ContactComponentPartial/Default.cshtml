@@ -1,0 +1,98 @@
+﻿@model MyPortfolioWebsite.DAL.Entities.Contact
+
+<style>
+    .s-contact {
+        background-color: #c5c5c5;
+    }
+</style>
+<section id="contact" class="s-contact target-section">
+
+    <div class="overlay"></div>
+
+    <div class="row narrow section-intro">
+        <div class="col-full">
+            <h3>Contact</h3>
+            <h1>@Model.Title</h1>
+            <p class="lead">@Model.Description</p>
+        </div>
+    </div>
+
+    <div class="row contact__main">
+        <div class="col-eight tab-full contact__form">
+            <form id="contactForm">
+                <fieldset>
+                    <div class="form-field">
+                        <input name="SenderName" type="text" id="SenderName" placeholder="Name" required class="full-width">
+                    </div>
+                    <div class="form-field">
+                        <input name="SenderEmail" type="email" id="SenderEmail" placeholder="Email" required class="full-width">
+                    </div>
+                    <div class="form-field">
+                        <input name="Subject" type="text" id="Subject" placeholder="Subject" class="full-width">
+                    </div>
+                    <div class="form-field">
+                        <textarea name="Detail" id="Detail" placeholder="Message" rows="10" class="full-width" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button id="sendMessageBtn" class="full-width btn--primary">Submit</button>
+                        <div id="ajaxResponseMessage" class="mt-2" style="display: none;"></div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="col-four tab-full contact__infos">
+            <h4 class="h06">Phone</h4>
+            <p>
+                Phone: @Model.Phone1<br>
+                Mobile: @Model.Phone2
+            </p>
+
+            <h4 class="h06">Email</h4>
+            <p>
+                @Model.Email1<br>
+                @Model.Email2
+            </p>
+
+            <h4 class="h06">Address</h4>
+            <p>
+                @Model.Address
+            </p>
+        </div>
+    </div>
+
+</section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#sendMessageBtn').on('click', function (e) {
+            e.preventDefault(); // Formun sayfayı yenilemesini engelle
+
+            var formData = {
+                SenderName: $('#SenderName').val(),
+                SenderEmail: $('#SenderEmail').val(),
+                Subject: $('#Subject').val(),
+                Detail: $('#Detail').val()
+            };
+
+            // AJAX isteği
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SendMessage", "Message")',  
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        $('#ajaxResponseMessage').removeClass('text-danger').addClass('text-success').text(response.message).show();
+                        $('#contactForm')[0].reset();
+                    } else {
+                        $('#ajaxResponseMessage').removeClass('text-success').addClass('text-danger').text(response.message).show();
+                    }
+                },
+                error: function () {
+                    $('#ajaxResponseMessage').removeClass('text-success').addClass('text-danger').text('An error occurred. Please try again.').show();
+                }
+            });
+        });
+    });
+</script>

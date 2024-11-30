@@ -1,0 +1,96 @@
+﻿@model MyPortfolioWebsite.DAL.Entities.BlogPost
+
+@{
+    ViewData["Title"] = "UpdateBlogPost";
+    Layout = "~/Views/Layout/Index.cshtml";
+}
+
+
+<div class="content">
+    <div class="container-fluid">
+        <h4 class="page-title">Blog Post List</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Update Blog Post</div>
+                    </div>
+                    <div class="card-body">
+
+                        <form id="updateBlogPostForm" method="post">
+                            <div>
+                                <input type="hidden" name="BlogPostID" value="@Model.BlogPostID" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Head">Blog Post Title</label>
+                                <input type="text" name="Head" value="@Model.Head" class="form-control" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Date">Date</label>
+                                <input type="text" name="Date" value="@Model.Date" class="form-control" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Description">Description</label>
+                                <textarea rows="4" name="Description" class="form-control">@Model.Description</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Url">Blog Post Url</label>
+                                <input type="text" name="Url" value="@Model.Url" class="form-control" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="UrlTitle">Blog Post Url Title</label>
+                                <input type="text" name="UrlTitle" value="@Model.UrlTitle" class="form-control" />
+                            </div>
+                        </form>
+                        <div class="form-group">
+                            <button type="button" id="updateBlogPostAjax" class="btn btn-info mt-3">Update BlogPost</button>
+                            <div id="ajaxResponseMessage" class="mt-2" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#updateBlogPostAjax").click(function(e) {
+            e.preventDefault();  
+
+            var formData = {
+                BlogPostID: $("input[name='BlogPostID']").val(),
+                Head: $("input[name='Head']").val(),
+                Date: $("input[name='Date']").val(),
+                Description: $("textarea[name='Description']").val(),
+                Url: $("input[name='Url']").val(),
+                UrlTitle: $("input[name='UrlTitle']").val()
+            };
+
+            $.ajax({
+                url: '@Url.Action("UpdateBlogPostAjax", "BlogPost")', 
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+
+                    if (response.success) {
+                        $("#ajaxResponseMessage").css("color", "green").text(response.message).show();
+                    } else {
+                        $("#ajaxResponseMessage").css("color", "red").text(response.message).show();
+                    }
+                },
+                error: function() {
+                    $("#ajaxResponseMessage").css("color", "red").text("An error occurred while updating the BlogPost.").show();
+                }
+            });
+        });
+    });
+
+
+</script>
+

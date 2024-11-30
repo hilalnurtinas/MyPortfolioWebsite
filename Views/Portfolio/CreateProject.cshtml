@@ -1,0 +1,50 @@
+﻿@model MyPortfolioWebsite.DAL.Entities.Portfolio
+
+@{
+    ViewData["Title"] = "CreateProject";
+    Layout = "~/Views/Layout/Index.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <h4 class="page-title">Skills</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Create Project</div>
+                    </div>
+                    <div class="card-body">
+
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="Title">Project Name</label>
+                                <input type="text" name="Title" class="form-control" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ImageUrl">Image Url</label>
+                                <input type="text" name="ImageUrl" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Url">Project Url</label>
+                                <input type="text" name="Url" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Description">Project Description</label>
+                                <input type="text" name="Description" class="form-control" />
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Add Project</button>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

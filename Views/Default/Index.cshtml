@@ -1,0 +1,52 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+
+@await Component.InvokeAsync("_HeadComponentPartial")
+
+<body id="top">
+
+    <!-- navbar
+    ================================================== -->
+    @await Component.InvokeAsync("_NavbarComponentPartial")
+   
+    <!-- home
+    ================================================== -->
+    @await Component.InvokeAsync("_FeatureComponentPartial")
+
+    <!-- about
+    ================================================== -->
+    @await Component.InvokeAsync("_AboutComponentPartial")
+
+    <!-- projects
+    ================================================== -->
+    @await Component.InvokeAsync("_PortfolioComponentPartial")
+
+    <!-- references
+    ================================================== -->
+    @await Component.InvokeAsync("_ReferenceComponentPartial")
+    
+    <!-- blog
+    ================================================== -->
+    @await Component.InvokeAsync("_BlogComponentPartial")
+
+    <!-- statistics
+    ================================================== -->
+    @await Component.InvokeAsync("_StatisticComponentPartial")
+
+    <!-- contact
+    ================================================== -->
+    @await Component.InvokeAsync("_ContactComponentPartial")
+
+    <!-- footer
+    ================================================== -->
+    @await Component.InvokeAsync("_FooterComponentPartial")
+
+
+</body>
+
+</html>
