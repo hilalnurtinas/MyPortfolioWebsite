@@ -1,4 +1,4 @@
-### README: Kişisel Portföy Web Sitesi
+### Kişisel Portföy Web Sitesi
 
 ---
 
